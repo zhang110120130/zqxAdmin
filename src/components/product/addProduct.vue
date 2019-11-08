@@ -4,13 +4,13 @@
             <el-form ref="form" :label-position="'top'" :model="form" label-width="80px">
                 <div class="info">
                     <el-form-item label="产品备案号" prop="recordnum" :rules="[{ validator: validatePass, trigger: 'blur' }]">
-                        <el-input v-model="form.recordnum"  :disabled = 'form.srecord == 2||disabled?true:false' ></el-input>
+                        <el-input v-model="form.recordnum"  :disabled = 'list.isrecord == 2||disabled?true:false' ></el-input>
                     </el-form-item>
                     <el-form-item label="产品名称" prop="proname" :rules="[{ required: true, message: '请输入产品名称', trigger: 'blur' }]" >
-                        <el-input v-model="form.proname"  :disabled = 'form.srecord == 2||disabled?true:false' ></el-input>
+                        <el-input v-model="form.proname"  :disabled = 'list.irecord == 2||disabled?true:false' ></el-input>
                     </el-form-item>
                     <el-form-item label="规格" prop="specname" :rules="[{ required: true, message: '请输入产品规格', trigger: 'blur' }]">
-                        <el-input v-model="form.specname" :disabled = 'form.srecord == 2||disabled?true:false'></el-input>
+                        <el-input v-model="form.specname" :disabled = 'list.isrecord == 2||disabled?true:false'></el-input>
                     </el-form-item>
                     <el-form-item label="类别" prop="arrcate" :rules="[{ required: true, message: '请输入产品类别', trigger: 'blur' }]">
                         <el-select v-model="form.arrcate" multiple placeholder="请选择">
@@ -53,9 +53,10 @@
                     </div>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit(2)" v-if="datas">保存</el-button>
+                    <el-button type="primary" @click="Preservation(1)" v-if="datas">{{list.isrecord == 1?'保存':'提交'}}</el-button>
                     <el-button type="primary" @click="onSubmit(1)" v-else>添加</el-button>     
-                    <el-button @click="onSubmit(0)" v-if = 'form.srecord == 0'>草稿</el-button>
+                    <el-button @click="onSubmit(0)" v-if = "list.isrecord == '' && !datas ">草稿</el-button>
+                    <el-button @click="Preservation(0)" v-if = "list.isrecord == 0 && datas">保存</el-button>
                     <el-button class="cancel" @click="totop">取消</el-button>
                 </el-form-item>
             </el-form>
@@ -100,7 +101,6 @@ export default {
             thumb:[],
             arrcate:[],
             content: '',
-            srecord:''
         },
         imageUrl: '',
         procatelist: [],
@@ -110,7 +110,7 @@ export default {
         user: null,
         id: null,
         datas:'',
-        list:{},
+        list:{isrecord:''},
         quillUpdateImg:false,
         editorOption:{
                 placeholder:'请填写产品详情信息',
@@ -145,13 +145,12 @@ export default {
             this.datas = false
         }else{
             this.datas = true
+            this.list = data.list;
         }
         this.form.arrcate = data.cate;
         let list = data.list;
-        this.list = data.list;
         this.form.content = list.content;
         this.form.proname = list.name;
-        this.form.srecord = list.isrecord 
         this.form.recordnum = list.recordnum;
         this.form.specname = list.specname;
         this.form.thumb = list.thumb.map((item) =>{
@@ -197,6 +196,7 @@ export default {
             let that = this;
             this.$refs.form.validate((valid) => {
                 if (valid) {
+               
                     that.form.uid = that.user.id;
                     that.form.isrecord = isrecord;
                     that.form.thumb = that.form.thumb.map((item) => {
@@ -220,6 +220,49 @@ export default {
                                 type: 'success',
                                 message: '添加成功!'
                             });
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
+        },
+        Preservation(isrecord){
+
+            let that = this;
+
+            this.$refs.form.validate((valid) => {
+                if (valid) {
+                    that.form.proid = that.list.id;
+                    that.form.cid = that.list.cid;
+                    that.form.uid = that.user.id;
+                    that.form.isrecord = isrecord;
+                    that.form.thumb = that.form.thumb.map((item) => {
+                        return {
+                            img_cover: item.url
+                        }
+                    });
+                    that.axios.post('/MobileJson/CompanyAdmin/draftsedit', that.qs.stringify(that.form))
+                    .then(function (response) {
+                        if(response.data.code){
+                            that.$refs.form.resetFields();
+                            that.form = {
+                                recordnum: '',
+                                proname:'',
+                                specname: '',
+                                thumb:[],
+                                arrcate:[],
+                                content:'',
+                            };
+                            that.$message({
+                                type: 'success',
+                                message: '保存成功!'
+                            });
+                            that.totop()
                         }
                     })
                     .catch(function (error) {
