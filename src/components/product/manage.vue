@@ -130,7 +130,7 @@
               </el-select>
             </el-form-item>
           </el-form>
-          <el-form v-if="radio == 2" ref="sell2" :model="sell[1]" label-width="70px">
+          <el-form v-if="radio == 2" ref="sell2" :model="sell[1]" label-width="80px">
             <el-form-item label="价格" prop="price" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' },{ type: 'number', message: '必须为数字值'}]">
               <el-input v-model.number="sell[1].price">
                 <template slot="append">元</template>
@@ -152,7 +152,7 @@
               </el-input>
             </el-form-item>
             <el-form-item label="结束时间" prop="end_at" :rules="[{ required: true, message: '请输入结束时间', trigger: 'blur' }]">
-              <el-input v-model.number="sell[1].end_at"></el-input>
+              <el-date-picker type="date" placeholder="选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd" v-model="sell[1].end_at" style="width: 100%;"></el-date-picker>
             </el-form-item>
             <el-form-item label="服务" prop="services" :rules="[{ required: true, message: '请选择服务', trigger: 'blur' }]">
               <el-select v-model="sell[1].services" multiple placeholder="请选择">
