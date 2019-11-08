@@ -38,18 +38,18 @@
                     <div id='quillEditorQiniu'>
                         <!-- 基于elementUi的上传组件 el-upload begin-->
                         <el-upload
-                                class="avatar-uploader"
-                                :action="uploadUrl"
-                                :accept="'image/*'"
-                                :data="qiniuForm"
-                                :show-file-list="false"
-                                :on-success="uploadEditorSuccess"
-                                :on-error="uploadEditorError"
-                                :before-upload="beforeEditorUpload">
-                            </el-upload>
-                            <!-- 基于elementUi的上传组件 el-upload end-->
-                            <quill-editor  class="editor"  v-model="form.content" ref="customQuillEditor" :options="editorOption" >
-                            </quill-editor>
+                            class="avatar-uploader"
+                            :action="uploadUrl"
+                            :accept="'image/*'"
+                            :data="qiniuForm"
+                            :show-file-list="false"
+                            :on-success="uploadEditorSuccess"
+                            :on-error="uploadEditorError"
+                            :before-upload="beforeEditorUpload">
+                        </el-upload>
+                        <!-- 基于elementUi的上传组件 el-upload end-->
+                        <quill-editor  class="editor"  v-model="form.content" ref="customQuillEditor" :options="editorOption" >
+                        </quill-editor>
                     </div>
                 </el-form-item>
                 <el-form-item>

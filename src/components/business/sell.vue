@@ -158,7 +158,8 @@ export default {
       freight: '',
       price: '',
       stock: '',
-      insurance: ''
+      insurance: '',
+      services: []
     },
     id: null
   }),
@@ -213,7 +214,8 @@ export default {
                 freight: '',
                 price: '',
                 stock: '',
-                insurance: ''
+                insurance: '',
+                services: []
               };
               that.$message({
                 type: 'success',
@@ -274,7 +276,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.axios.post('/MobileJson/CompanyAdmin/goodsupda', this.qs.stringify({ 
+        this.axios.post('/MobileJson/CompanyAdmin/goodsup', this.qs.stringify({ 
           uid: this.user.id,
           id: id
         }))

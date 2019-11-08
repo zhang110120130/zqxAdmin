@@ -158,7 +158,8 @@ export default {
       freight: '',
       price: '',
       stock: '',
-      insurance: ''
+      insurance: '',
+      services: []
     },
     id: null
   }),
@@ -214,7 +215,8 @@ export default {
                 freight: '',
                 price: '',
                 stock: '',
-                insurance: ''
+                insurance: '',
+                services: []
               };
               that.$message({
                 type: 'success',
