@@ -1,7 +1,7 @@
 <template>
   <div class="manage">
     <div class="header">
-      <p class="title">我要团购</p>
+      <p class="title">我要出售</p>
       <el-input
         placeholder="搜索关键词"
         v-model="keywords"
@@ -189,7 +189,6 @@ export default {
       this.getList();
     },
     editBtn(data){
-      console.log(data);
       this.id = data.id;
       this.form.freight = parseInt(data.freight);
       this.form.price = parseInt(data.price);

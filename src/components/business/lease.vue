@@ -1,7 +1,7 @@
 <template>
   <div class="manage">
     <div class="header">
-      <p class="title">我要团购</p>
+      <p class="title">我要租赁</p>
       <el-input
         placeholder="搜索关键词"
         v-model="keywords"
