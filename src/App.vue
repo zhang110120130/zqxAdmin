@@ -14,6 +14,9 @@ export default {
 <style>
 #app {
 }
+.el-table--border::after, .el-table--group::after, .el-table::before{
+      background-color:rgba(0,0,0,0)!important;
+}
 body{
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
