@@ -53,9 +53,10 @@
                     </div>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="Preservation(1)" v-if="datas">保存</el-button>
+                    <el-button type="primary" @click="Preservation(1)" v-if="datas">{{list.isrecord == 1?'保存':'提交'}}</el-button>
                     <el-button type="primary" @click="onSubmit(1)" v-else>添加</el-button>     
-                    <el-button @click="Preservation(0)" v-if = 'list.isrecord == 0'>草稿</el-button>
+                    <el-button @click="onSubmit(0)" v-if = "list.isrecord == '' && !datas ">草稿</el-button>
+                    <el-button @click="Preservation(0)" v-if = "list.isrecord == 0 && datas">保存</el-button>
                     <el-button class="cancel" @click="totop">取消</el-button>
                 </el-form-item>
             </el-form>
