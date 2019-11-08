@@ -121,6 +121,16 @@
             <template slot="append">元</template>
           </el-input>
         </el-form-item>
+        <el-form-item label="服务" prop="services" :rules="[{ required: true, message: '请选择服务', trigger: 'blur' }]">
+          <el-select v-model="form.services" multiple placeholder="请选择">
+            <el-option
+              v-for="item in allservices"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogTableVisible = false">取 消</el-button>
@@ -141,6 +151,7 @@ export default {
     keywords: '',
     tableData: [],
     user: null,
+    allservices: [],
     page: 1,
     pages: 0,
     form:{
@@ -154,8 +165,22 @@ export default {
   created(){
     this.user = this.$store.getters.getUser;
     this.getList();
+    this.getallservices();
   },
   methods: {
+    getallservices(){
+      let that = this;
+      this.axios.post('/MobileJson/CompanyAdmin/allservices', this.qs.stringify({ 
+        uid: this.user.id
+      }))
+      .then(function (response) {
+        if(response.data.code == true){
+          that.allservices = response.data.data;
+        }
+      })
+      .catch(function (error) {
+      });
+    },
     searchBtn(){
       this.getList();
     },
@@ -170,6 +195,7 @@ export default {
       this.form.price = parseInt(data.price);
       this.form.stock = parseInt(data.stock);
       this.form.insurance = parseInt(data.insurance);
+      this.form.services = data.services;
       this.dialogTableVisible = true;
     },
     submitForm(){

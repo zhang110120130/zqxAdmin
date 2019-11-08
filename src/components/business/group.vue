@@ -205,7 +205,6 @@ export default {
       this.form.stock = parseInt(data.stock);
       this.form.insurance = parseInt(data.insurance);
       this.form.services = data.services;
-      console.log(this.form.services);
       this.dialogTableVisible = true;
     },
     submitForm(){
