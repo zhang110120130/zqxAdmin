@@ -420,15 +420,17 @@ export default {
         this.project.splice(ind,1,)
       },
       handleRemove(file,fileList) { //删除荣誉图
-      console.log(file.url)
+      let arr =[]
+      for(let a = 0;a < this.imageslist.length;a++){
+        arr.push(this.imageslist[a].img_cover)
+      }
         if(file.url.indexOf('blob:') == 0){
-          let j = this.imageslist.indexOf({img_cover:file.response.url})
-          // console.log(j)
+          let j = this.imageslist.indexOf(file.response.url)
           this.imageslist.splice(j,1,)
         }
         else{
-        let i = this.imageslist.indexOf({img_cover:file.url})
-        this.imageslist.splice(i,1,)
+          let i = arr.indexOf(file.url)
+          this.imageslist.splice(i,1,)
         }
       },
       success(response, file, fileList){
@@ -563,7 +565,7 @@ export default {
                       message: res.data.data,
                       type: 'success'
                     });
-
+                    that.imageslist = []
                     that.rendering()
                   }else{
                     this.$message.error(res.data.data); 
