@@ -93,7 +93,7 @@
         <el-radio-group v-model="radio">
           <el-radio :disabled="'出售' | radioFilter(radiolist)" :label="1" @change="resetForm('sell1')">出售</el-radio>
           <el-radio :disabled="'团购' | radioFilter(radiolist)" :label="2" @change="resetForm('sell2')">团购</el-radio>
-          <el-radio :disabled="'租赁' | radioFilter(radiolist)" :label="3" @change="resetForm('sell3')">租赁</el-radio>
+          <el-radio :disabled="'出租' | radioFilter(radiolist)" :label="3" @change="resetForm('sell3')">租赁</el-radio>
         </el-radio-group>
       </span>
       <div class="addBusiness">
