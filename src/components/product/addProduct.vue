@@ -213,7 +213,7 @@ export default {
           "/MobileJson/CompanyAdmin/checkrecordnum",
           that.qs.stringify({
             uid: that.user.id,
-            recordnum: value
+            recordnum: that.form.recordnum
           })
         )
         .then(function(response) {
@@ -222,7 +222,7 @@ export default {
             that.form.proname = response.data.data.productname;
             callback();
           } else {
-            that.$message.error("备案号输入不正确，请重新输入或者跳过此填项");
+            that.$message.error(response.data.data+"，请重新输入或者跳过此填项");
             that.form.recordnum = "";
             callback();
           }
