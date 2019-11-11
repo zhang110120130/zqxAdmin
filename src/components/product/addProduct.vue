@@ -3,8 +3,8 @@
         <div class="main">
             <el-form ref="form" :label-position="'top'" :model="form" label-width="80px">
                 <div class="info">
-                    <el-form-item label="产品备案号" prop="recordnum" :rules="[{ validator: validatePass, trigger: 'blur' }]">
-                        <el-input v-model="form.recordnum"  :disabled = 'list.isrecord == 2||disabled?true:false' ></el-input>
+                    <el-form-item label="产品备案号" prop="recordnum">
+                        <el-input v-model="form.recordnum"  :disabled = 'list.isrecord == 2||disabled?true:false' @blur="validatePass"></el-input>
                     </el-form-item>
                     <el-form-item label="产品名称" prop="proname" :rules="[{ required: true, message: '请输入产品名称', trigger: 'blur' }]" >
                         <el-input v-model="form.proname"  :disabled = 'list.irecord == 2||disabled?true:false' ></el-input>
