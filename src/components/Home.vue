@@ -149,6 +149,7 @@ export default {
   created(){
     this.active = this.$route.path.replace('/', '');
     this.user = this.$store.getters.getUser;
+    console.log(this.user);
   },
   watch:{
       $route(to,from){

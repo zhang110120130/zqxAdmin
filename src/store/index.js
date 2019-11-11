@@ -24,7 +24,8 @@ const getters = {
             id: state.user.id,
             nickname: state.user.nickname,
             phone:state.user.phone,
-            logintime:state.user.logintime
+            logintime:state.user.logintime,
+            usernotice:state.user.usernotice
         }
     },
     getToken(state){
