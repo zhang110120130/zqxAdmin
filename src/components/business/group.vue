@@ -130,6 +130,9 @@
             <template slot="append">元</template>
           </el-input>
         </el-form-item>
+        <el-form-item label="结束时间" prop="end_at" :rules="[{ required: true, message: '请输入结束时间', trigger: 'blur' }]">
+              <el-date-picker type="date" placeholder="选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd" v-model="form.end_at" style="width: 100%;"></el-date-picker>
+            </el-form-item>
         <el-form-item label="服务" prop="services" :rules="[{ required: true, message: '请选择服务', trigger: 'blur' }]">
           <el-select v-model="form.services" multiple placeholder="请选择">
             <el-option
@@ -167,6 +170,8 @@ export default {
       freight: '',
       price: '',
       stock: '',
+      type:2,
+      end_at:'',
       insurance: '',
       services: []
     },
@@ -223,6 +228,8 @@ export default {
                 freight: '',
                 price: '',
                 stock: '',
+                type:2,
+                end_at:'',
                 insurance: '',
                 services: []
               };
@@ -285,7 +292,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.axios.post('/MobileJson/CompanyAdmin/goodsupda', this.qs.stringify({ 
+        this.axios.post('/MobileJson/CompanyAdmin/goodsup', this.qs.stringify({ 
           uid: this.user.id,
           id: id
         }))
