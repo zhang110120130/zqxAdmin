@@ -207,9 +207,12 @@ export default {
   },
   methods: {
     validatePass(rule, value, callback) {
-      let that = this;
-      that.axios
-        .post(
+           let that = this;
+      if(that.form.recordnum == ''){
+        return false
+      }
+ 
+      that.axios.post(
           "/MobileJson/CompanyAdmin/checkrecordnum",
           that.qs.stringify({
             uid: that.user.id,
