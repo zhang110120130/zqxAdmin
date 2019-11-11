@@ -10,7 +10,7 @@
                         <el-input v-model="form.proname"  :disabled = 'list.irecord == 2||disabled?true:false' ></el-input>
                     </el-form-item>
                     <el-form-item label="规格" prop="specname" :rules="[{ required: true, message: '请输入产品规格', trigger: 'blur' }]">
-                        <el-input v-model="form.specname" :disabled = 'list.isrecord == 2||disabled?true:false'></el-input>
+                        <el-input v-model="form.specname"></el-input>
                     </el-form-item>
                     <el-form-item label="类别" prop="arrcate" :rules="[{ required: true, message: '请输入产品类别', trigger: 'blur' }]">
                         <el-select v-model="form.arrcate" multiple placeholder="请选择">
@@ -182,9 +182,10 @@ export default {
                 that.disabled = response.data.code
                 if(response.data.code){
                     that.form.proname = response.data.data.productname;
-                    that.form.specname = response.data.data.recordnum;
                     callback();
                 }else{
+                    that.$message.error('备案号输入不正确，请重新输入或者跳过此填项');
+                    that.form.recordnum = ''
                     callback();
                 }
             })
