@@ -49,7 +49,8 @@
     </el-aside>
     <el-container>
       <el-header>
-        <el-badge :value="user.usernotice" class="item">
+        <img v-if="user.usernotice == 0" src="../assets/xinxi.png" @click="news()" alt="" style="cursor:pointer;">
+        <el-badge v-else :value="user.usernotice" class="item">
           <img src="../assets/xinxi.png" @click="news()" alt="" style="cursor:pointer;">
         </el-badge>
         <p @click="news()" style="cursor:pointer;">消息</p>
