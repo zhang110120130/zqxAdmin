@@ -91,46 +91,14 @@
     <el-dialog :visible.sync="dialogTableVisible" :show-close = false width="450px">
       <span slot="title" class="dialog-title">
         <el-radio-group v-model="radio">
-          <el-radio :disabled="'出售' | radioFilter(radiolist)" :label="1" @change="resetForm('sell1')">出售</el-radio>
-          <el-radio :disabled="'团购' | radioFilter(radiolist)" :label="2" @change="resetForm('sell2')">团购</el-radio>
-          <el-radio :disabled="'出租' | radioFilter(radiolist)" :label="3" @change="resetForm('sell3')">租赁</el-radio>
+          <el-radio :disabled="'出售' | radioFilter(radiolist)" :label="1" @change="resetForm('sell1', 1)">出售</el-radio>
+          <el-radio :disabled="'团购' | radioFilter(radiolist)" :label="2" @change="resetForm('sell2', 2)">团购</el-radio>
+          <el-radio :disabled="'出租' | radioFilter(radiolist)" :label="3" @change="resetForm('sell3', 3)">租赁</el-radio>
         </el-radio-group>
       </span>
       <div class="addBusiness">
         <div class="sell">
-          <el-form v-if="radio == 1" ref="sell1" :model="sell[0]" label-width="70px">
-            <el-form-item label="价格" prop="price" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' },{ type: 'number', message: '必须为数字值'}]">
-              <el-input v-model.number="sell[0].price">
-                <template slot="append">元</template>
-              </el-input>
-            </el-form-item>
-            <el-form-item label="库存" prop="stock" :rules="[{ required: true, message: '请输入库存', trigger: 'blur' },{ type: 'number', message: '必须为数字值'}]">
-              <el-input v-model.number="sell[0].stock">
-                <template slot="append">件</template>
-              </el-input>
-            </el-form-item>
-            <el-form-item label="运费" prop="freight" :rules="[{ required: true, message: '请输入运费', trigger: 'blur' },{ type: 'number', message: '必须为数字值'}]">
-              <el-input v-model.number="sell[0].freight">
-                <template slot="append">元</template>
-              </el-input>
-            </el-form-item>
-            <el-form-item label="保险" prop="insurance" :rules="[{ required: true, message: '请输入保险', trigger: 'blur' },{ type: 'number', message: '必须为数字值'}]">
-              <el-input v-model.number="sell[0].insurance">
-                <template slot="append">元</template>
-              </el-input>
-            </el-form-item>
-            <el-form-item label="服务" prop="services" :rules="[{ required: true, message: '请选择服务', trigger: 'blur' }]">
-              <el-select v-model="sell[0].services" multiple placeholder="请选择">
-                <el-option
-                  v-for="item in allservices"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-form>
-          <el-form v-if="radio == 2" ref="sell2" :model="sell[1]" label-width="80px">
+          <el-form v-if="radio == 1" ref="sell1" :model="sell[1]" label-width="70px">
             <el-form-item label="价格" prop="price" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' },{ type: 'number', message: '必须为数字值'}]">
               <el-input v-model.number="sell[1].price">
                 <template slot="append">元</template>
@@ -151,9 +119,6 @@
                 <template slot="append">元</template>
               </el-input>
             </el-form-item>
-            <el-form-item label="结束时间" prop="end_at" :rules="[{ required: true, message: '请输入结束时间', trigger: 'blur' }]">
-              <el-date-picker type="date" :picker-options="pickerOptions" placeholder="选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd" v-model="sell[1].end_at" style="width: 100%;"></el-date-picker>
-            </el-form-item>
             <el-form-item label="服务" prop="services" :rules="[{ required: true, message: '请选择服务', trigger: 'blur' }]">
               <el-select v-model="sell[1].services" multiple placeholder="请选择">
                 <el-option
@@ -165,7 +130,7 @@
               </el-select>
             </el-form-item>
           </el-form>
-          <el-form v-if="radio == 3" ref="sell3" :model="sell[2]" label-width="70px">
+          <el-form v-if="radio == 2" ref="sell2" :model="sell[2]" label-width="80px">
             <el-form-item label="价格" prop="price" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' },{ type: 'number', message: '必须为数字值'}]">
               <el-input v-model.number="sell[2].price">
                 <template slot="append">元</template>
@@ -186,9 +151,8 @@
                 <template slot="append">元</template>
               </el-input>
             </el-form-item>
-            <el-form-item label="押金" prop="deposit" :rules="[{ required: true, message: '请输入押金', trigger: 'blur' },{ type: 'number', message: '必须为数字值'}]">
-              <el-input v-model.number="sell[2].deposit"></el-input>
-              <span style="color: #FFF">元</span>
+            <el-form-item label="结束时间" prop="end_at" :rules="[{ required: true, message: '请输入结束时间', trigger: 'blur' }]">
+              <el-date-picker type="date" :picker-options="pickerOptions" placeholder="选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd" v-model="sell[1].end_at" style="width: 100%;"></el-date-picker>
             </el-form-item>
             <el-form-item label="服务" prop="services" :rules="[{ required: true, message: '请选择服务', trigger: 'blur' }]">
               <el-select v-model="sell[2].services" multiple placeholder="请选择">
@@ -201,10 +165,46 @@
               </el-select>
             </el-form-item>
           </el-form>
+          <el-form v-if="radio == 3" ref="sell3" :model="sell[3]" label-width="70px">
+            <el-form-item label="价格" prop="price" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' },{ type: 'number', message: '必须为数字值'}]">
+              <el-input v-model.number="sell[3].price">
+                <template slot="append">元</template>
+              </el-input>
+            </el-form-item>
+            <el-form-item label="库存" prop="stock" :rules="[{ required: true, message: '请输入库存', trigger: 'blur' },{ type: 'number', message: '必须为数字值'}]">
+              <el-input v-model.number="sell[3].stock">
+                <template slot="append">件</template>
+              </el-input>
+            </el-form-item>
+            <el-form-item label="运费" prop="freight" :rules="[{ required: true, message: '请输入运费', trigger: 'blur' },{ type: 'number', message: '必须为数字值'}]">
+              <el-input v-model.number="sell[3].freight">
+                <template slot="append">元</template>
+              </el-input>
+            </el-form-item>
+            <el-form-item label="保险" prop="insurance" :rules="[{ required: true, message: '请输入保险', trigger: 'blur' },{ type: 'number', message: '必须为数字值'}]">
+              <el-input v-model.number="sell[3].insurance">
+                <template slot="append">元</template>
+              </el-input>
+            </el-form-item>
+            <el-form-item label="押金" prop="deposit" :rules="[{ required: true, message: '请输入押金', trigger: 'blur' },{ type: 'number', message: '必须为数字值'}]">
+              <el-input v-model.number="sell[3].deposit"></el-input>
+              <span style="color: #FFF">元</span>
+            </el-form-item>
+            <el-form-item label="服务" prop="services" :rules="[{ required: true, message: '请选择服务', trigger: 'blur' }]">
+              <el-select v-model="sell[3].services" multiple placeholder="请选择">
+                <el-option
+                  v-for="item in allservices"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-form>
         </div>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogTableVisible = false">取 消</el-button>
+        <el-button @click="cancel()">取 消</el-button>
         <el-button type="primary" @click="submitForm">确 定</el-button>
       </span>
     </el-dialog>
@@ -262,8 +262,14 @@ export default {
     this.getallservices();
   },
   methods: {
-    resetForm(sell){
+    cancel(){
+      let str = 'sell' + this.radio;
+      this.$refs[str].resetFields();
+      this.dialogTableVisible = false;
+    },
+    resetForm(sell, index){ 
       this.$refs[sell].resetFields();
+      this.sell[index].services = [];
     },
     beian(id){
       let that = this;
