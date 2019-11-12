@@ -109,7 +109,7 @@
       :page-count="Math.ceil(pages / 5)">
     </el-pagination>
     <el-dialog :visible.sync="dialogTableVisible" :show-close = false width="450px">
-      <el-form ref="form" :model="form" label-width="70px">
+      <el-form ref="form" :model="form" label-width="90px">
         <el-form-item label="价格" prop="price" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' },{ type: 'number', message: '必须为数字值'}]">
           <el-input v-model.number="form.price">
             <template slot="append">元</template>
