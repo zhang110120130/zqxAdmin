@@ -229,7 +229,7 @@ export default {
             return time.getTime() < Date.now();
           }
     },
-    sell: [
+    sell: [{},
       {
         price: '',
         stock: '',
