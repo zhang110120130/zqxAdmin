@@ -121,6 +121,11 @@
             <template slot="append">元</template>
           </el-input>
         </el-form-item>
+        <el-form-item label="押金" prop="insurance" :rules="[{ required: true, message: '请输入保险', trigger: 'blur' },{ type: 'number', message: '必须为数字值'}]">
+              <el-input v-model.number="form.deposit">
+                <template slot="append">元</template>
+              </el-input>
+            </el-form-item>
         <el-form-item label="服务" prop="services" :rules="[{ required: true, message: '请选择服务', trigger: 'blur' }]">
           <el-select v-model="form.services" multiple placeholder="请选择">
             <el-option
@@ -158,6 +163,8 @@ export default {
       freight: '',
       price: '',
       stock: '',
+      deposit:'',
+      type:3,
       insurance: '',
       services: []
     },
@@ -196,6 +203,7 @@ export default {
       this.form.price = parseInt(data.price);
       this.form.stock = parseInt(data.stock);
       this.form.insurance = parseInt(data.insurance);
+      this.form.deposit = parseInt(data.deposit);
       this.form.services = data.services;
       this.dialogTableVisible = true;
     },
@@ -215,7 +223,9 @@ export default {
                 freight: '',
                 price: '',
                 stock: '',
+                type:3,
                 insurance: '',
+                deposit:'',
                 services: []
               };
               that.$message({
@@ -225,7 +235,7 @@ export default {
             }
           })
           .catch(function (error) {
-          });
+          }); 
         } else {
           
           return false;
