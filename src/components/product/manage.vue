@@ -263,9 +263,9 @@ export default {
   },
   methods: {
     cancel(){
+      this.dialogTableVisible = false;
       let str = 'sell' + this.radio;
       this.$refs[str].resetFields();
-      this.dialogTableVisible = false;
     },
     resetForm(sell, index){ 
       this.$refs[sell].resetFields();
