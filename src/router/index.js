@@ -58,7 +58,8 @@ let router = new Router({
           component: sellBusiness
         },
         {
-          path: 'news',
+          path: 'news/:time',
+          name: 'news',
           component: News
         },
         {
