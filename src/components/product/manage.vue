@@ -337,7 +337,7 @@ export default {
     submitForm(){
       let name = 'sell' + this.radio;
       let type = this.radio;
-      let i = parseInt(this.radio) - 1;
+      let i = parseInt(this.radio);
       let from = this.sell[i];
       from.proid = this.proid;
       from.uid = this.user.id;
