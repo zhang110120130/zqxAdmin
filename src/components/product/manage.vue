@@ -152,7 +152,7 @@
               </el-input>
             </el-form-item>
             <el-form-item label="结束时间" prop="end_at" :rules="[{ required: true, message: '请输入结束时间', trigger: 'blur' }]">
-              <el-date-picker type="date" placeholder="选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd" :picker-options="pickerOptions" v-model="sell[2].end_at" style="width: 100%;"></el-date-picker>
+              <el-date-picker type="date" :picker-options="pickerOptions" placeholder="选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd" v-model="sell[1].end_at" style="width: 100%;"></el-date-picker>
             </el-form-item>
             <el-form-item label="服务" prop="services" :rules="[{ required: true, message: '请选择服务', trigger: 'blur' }]">
               <el-select v-model="sell[2].services" multiple placeholder="请选择">
@@ -225,11 +225,11 @@ export default {
     pages: 0,
     allservices: [],
     pickerOptions: {
-      disabledDate(time) {
-        return time.getTime() < Date.now();
-      },
+          disabledDate(time) {
+            return time.getTime() < Date.now();
+          }
     },
-    sell: [{},
+    sell: [
       {
         price: '',
         stock: '',
