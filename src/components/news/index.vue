@@ -4,7 +4,7 @@
             <div class="each"  v-if="item.type == 2" >
                 <h4 class="title">审核消息</h4>
                 <p class="time">{{item.systime}}</p>
-                <p class="neirong"><span>您的{{item.content.productname}}{{item.content.status == 1?'通过审核':'没有通过'}}，</span><span v-if="item.content.status == 0">未通过原因:{{item.content.reason}}</span><span v-else>恭喜你可以上架你的产品了</span></p>
+                <p class="neirong"><span>您的{{item.content.productname}}{{item.content.status == 1?'通过审核':'没有通过'}}，</span><span v-if="item.content.status == 2">未通过原因:{{item.content.reason}}</span><span v-if="item.content.status == 1">恭喜你可以上架你的产品了</span></p>
                 <p class="jindu"><span v-if="item.content.status == 1">未通过原因:{{item.content.reason}}</span></p>
             </div>
             <div class="each" v-else>
