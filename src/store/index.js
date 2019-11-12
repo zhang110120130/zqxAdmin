@@ -2,7 +2,8 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
 const state = {   
-    user: JSON.parse(sessionStorage.getItem('user'))
+    user: JSON.parse(sessionStorage.getItem('user')),
+    usernotice: 0
 };
 const getters = {
     isLogin(state) {
@@ -24,8 +25,7 @@ const getters = {
             id: state.user.id,
             nickname: state.user.nickname,
             phone:state.user.phone,
-            logintime:state.user.logintime,
-            usernotice:state.user.usernotice
+            logintime:state.user.logintime
         }
     },
     getToken(state){
@@ -43,6 +43,10 @@ const mutations = {
     },
     setuser(state, payload){
         state.user = payload;
+    },
+    setusernotice(state, payload){
+        console.log(payload);
+        state.usernotice = payload.usernotice;
     }
   }
 const store = new Vuex.Store({

@@ -42,14 +42,14 @@
         <el-form-item
           class="productImg"
           label="产品图片"
-          prop="thumb"
+          prop="thumbs"
           :rules="[{ required: true, message: '请输入产品图片', trigger: 'blur' }]"
         >
           <el-upload
             action="http://article.5i71.org/Communal/upload/upload_file"
             list-type="picture-card"
             :limit="3"
-            :file-list="form.thumb"
+            :file-list="form.thumbs"
             :on-success="handlePictureCardPreview"
             :on-remove="handleRemove"
           >
@@ -134,6 +134,7 @@ export default {
       proname: "",
       specname: "",
       thumb: [],
+      thumbs: [],
       arrcate: [],
       content: ""
     },
@@ -184,11 +185,15 @@ export default {
       this.list = data.list;
       this.form.arrcate = data.cate;
       let list = data.list;
+    
       this.form.content = list.content;
       this.form.proname = list.name;
       this.form.recordnum = list.recordnum;
+      if(list.recordnum != ''){
+        this.disabled = true
+      }
       this.form.specname = list.specname;
-      this.form.thumb = list.thumb.map(item => {
+      this.form.thumbs = list.thumb.map(item => {
         return {
           name: "img.png",
           url: item.img_cover
@@ -240,7 +245,7 @@ export default {
         if (valid) {
           that.form.uid = that.user.id;
           that.form.isrecord = isrecord;
-          that.form.thumb = that.form.thumb.map(item => {
+          that.form.thumb = that.form.thumbs.map(item => {
             return {
               img_cover: item.url
             };
@@ -261,6 +266,7 @@ export default {
                   arrcate: [],
                   content: ""
                 };
+                that.disabled = false;
                 that.$message({
                   type: "success",
                   message: "添加成功!"
@@ -285,7 +291,7 @@ export default {
           that.form.cid = that.list.cid;
           that.form.uid = that.user.id;
           that.form.isrecord = isrecord;
-          that.form.thumb = that.form.thumb.map(item => {
+          that.form.thumb = that.form.thumbs.map(item => {
             return {
               img_cover: item.url
             };
@@ -306,11 +312,17 @@ export default {
                   arrcate: [],
                   content: ""
                 };
+                that.disabled = false;
                 that.$message({
                   type: "success",
                   message: "保存成功!"
                 });
                 that.totop();
+              }else{
+                 that.$message.error({
+                  type: "success",
+                  message: response.data.data
+                });
               }
             })
             .catch(function(error) {
@@ -328,23 +340,23 @@ export default {
       });
     },
     handleRemove(file, fileList) {
-      this.form.thumb = [];
+      this.form.thumbs = [];
       fileList.forEach((item, index) => {
         let img_cover = {
           name: "img.png",
           url: item.url
         };
-        this.form.thumb.push(img_cover);
+        this.form.thumbs.push(img_cover);
       });
     },
     handlePictureCardPreview(response, file, fileList) {
       console.log(fileList);
-      let index = this.form.thumb.length;
+      let index = this.form.thumbs.length;
       let img_cover = {
         name: "img.png",
         url: response.url
       };
-      this.form.thumb.push(img_cover);
+      this.form.thumbs.push(img_cover);
     },
     getProcatelist() {
       let that = this;
