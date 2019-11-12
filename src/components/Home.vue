@@ -49,8 +49,8 @@
     </el-aside>
     <el-container>
       <el-header>
-        <img v-if="user.usernotice == 0" src="../assets/xinxi.png" @click="news()" alt="" style="cursor:pointer;">
-        <el-badge v-else :value="user.usernotice" class="item">
+        <img v-if="$store.state.usernotice == 0" src="../assets/xinxi.png" @click="news()" alt="" style="cursor:pointer;">
+        <el-badge v-else :value="$store.state.usernotice" class="item">
           <img src="../assets/xinxi.png" @click="news()" alt="" style="cursor:pointer;">
         </el-badge>
         <p @click="news()" style="cursor:pointer;">消息</p>
@@ -168,7 +168,8 @@ export default {
     },
     //跳转消息页面
     news(){
-      this.$router.push({path:'/news'})
+      let that = this
+      that.$router.push({name:'news', params:{ time: Date.now()}});
     },
     //上传头像
     handleAvatarSuccess(res, file) {

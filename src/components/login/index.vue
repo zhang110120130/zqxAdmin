@@ -47,7 +47,7 @@ export default {
             let user =  response.data.data.user;
             user.logintime = response.data.data.logintime
             user.token = response.data.data.token;
-            user.usernotice = response.data.data.usernotice;
+            that.$store.state.usernotice = response.data.data.usernotice;
             that.axios.defaults.headers.TOKEN = user.token;
             sessionStorage.setItem("user", JSON.stringify(user));
             that.$store.commit('setuser', user);

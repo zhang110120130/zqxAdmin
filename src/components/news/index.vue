@@ -31,12 +31,26 @@ export default {
     let that = this
     that.axios.post('/MobileJson/CompanyAdmin/usernotice',that.qs.stringify({uid:that.user.id}))
     .then(res => {
+        that.datalist = res.data.data
+        for(let i=0 ;i<res.data.data.length;i++){
+            that.datalist[i].content = JSON.parse( res.data.data[i].content )
+        }
+        that.$store.state.usernotice = res.data.noread;
+    })
+  },
+  watch: {
+  $route(){
+    let that = this
+    that.axios.post('/MobileJson/CompanyAdmin/usernotice',that.qs.stringify({uid:that.user.id}))
+    .then(res => {
         this.datalist = res.data.data
         for(let i=0 ;i<res.data.data.length;i++){
             this.datalist[i].content = JSON.parse( res.data.data[i].content )
         }
-    })
+        that.$store.state.usernotice = res.data.noread;
+    });
   },
+},
   mounted(){
         
   },
