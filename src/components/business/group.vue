@@ -214,6 +214,7 @@ export default {
       this.form.price = parseInt(data.price);
       this.form.stock = parseInt(data.stock);
       this.form.insurance = parseInt(data.insurance);
+      this.form.end_at = data.end_at;
       this.form.services = data.services;
       this.dialogTableVisible = true;
     },
