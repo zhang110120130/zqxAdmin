@@ -287,7 +287,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.axios.post('/MobileJson/CompanyAdmin/goodsupda', this.qs.stringify({ 
+        this.axios.post('/MobileJson/CompanyAdmin/goodsup', this.qs.stringify({ 
           uid: this.user.id,
           id: id
         }))
