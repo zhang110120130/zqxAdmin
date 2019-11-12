@@ -14,7 +14,7 @@
         background-color="#FFF"
         text-color="#30323FFF"
         active-text-color="#30323FFF">
-        <el-menu-item index="company">
+        <el-menu-item index="/company">
           <i class="icon icon-1"></i>
           <span slot="title">企业</span>
         </el-menu-item>
@@ -23,27 +23,27 @@
             <i class="icon icon-2"></i>
             <span>产品</span>
           </template>
-          <el-menu-item index="addProduct">添加产品</el-menu-item>
-          <el-menu-item index="ProductManage">产品管理</el-menu-item>
-          <el-menu-item index="ProductDraft">草稿箱</el-menu-item>
+          <el-menu-item index="/addProduct">添加产品</el-menu-item>
+          <el-menu-item index="/ProductManage">产品管理</el-menu-item>
+          <el-menu-item index="/ProductDraft">草稿箱</el-menu-item>
         </el-submenu>
         <el-submenu index="3">
           <template slot="title">
             <i class="icon icon-3"></i>
             <span>商务</span>
           </template>
-          <el-menu-item index="sellBusiness">我要出售</el-menu-item>
-          <el-menu-item index="leaseBusiness">我要出租</el-menu-item>
-          <el-menu-item index="groupBusiness">我要开团</el-menu-item>
+          <el-menu-item index="/sellBusiness">我要出售</el-menu-item>
+          <el-menu-item index="/leaseBusiness">我要出租</el-menu-item>
+          <el-menu-item index="/groupBusiness">我要开团</el-menu-item>
         </el-submenu>
         <el-submenu index="4">
           <template slot="title">
             <i class="icon icon-4"></i>
             <span>订单管理</span>
           </template>
-          <el-menu-item index="sellOrder">出售订单</el-menu-item>
-          <el-menu-item index="group">出租订单</el-menu-item>
-          <el-menu-item index="lease">开团订单</el-menu-item>
+          <el-menu-item index="/sellOrder">出售订单</el-menu-item>
+          <el-menu-item index="/group">出租订单</el-menu-item>
+          <el-menu-item index="/lease">开团订单</el-menu-item>
         </el-submenu>
       </el-menu>
     </el-aside>
