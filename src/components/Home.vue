@@ -395,7 +395,7 @@ export default {
     align-items: center;
     justify-content: flex-end;
     height: 88px !important;
-    background-color: #30323FFF;
+    background-color: #30323F;
     color: #FFF;
     text-align: center;
     p{
@@ -451,7 +451,7 @@ export default {
     border-left: 7px solid #FFF;
   }
   .el-menu-item.is-active{
-    border-left: 7px solid #629EF4FF;
+    border-left: 7px solid #629EF4;
     background:rgba(247,248,252,1) !important;
   }
   .el-container.is-vertical{
