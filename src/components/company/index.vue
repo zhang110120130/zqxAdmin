@@ -88,7 +88,7 @@
 
       </div>
       <div class='alert'>
-        <el-dialog :title="title" :visible.sync="dialogVisible" width="60%">
+        <el-dialog :title="title" :visible.sync="dialogVisible" :close-on-click-modal='false' width="60%">
           <!-- 编辑企业资料 -->
           <div class="one" v-if="editid == 1">
             <div class='top'>
@@ -120,7 +120,7 @@
           
           <div class="two" v-else-if="editid == 2">
           <!-- 编辑器 -->
-              <div id='quillEditorQiniu'>
+              <div id='quillEditorQiniu' style="height:40vh;">
                         <!-- 基于elementUi的上传组件 el-upload begin-->
                         <el-upload
                                 class="avatar-uploader"
@@ -130,10 +130,11 @@
                                 :show-file-list="false"
                                 :on-success="uploadEditorSuccess"
                                 :on-error="uploadEditorError"
-                                :before-upload="beforeEditorUpload">
+                                :before-upload="beforeEditorUpload"
+                                >
                             </el-upload>
                             <!-- 基于elementUi的上传组件 el-upload end-->
-                            <quill-editor  class="editor"  v-model="company.description" ref="customQuillEditor" :options="editorOption" >
+                            <quill-editor  class="editor"  v-model="company.description" ref="customQuillEditor" :options="editorOption" style="height:30vh;" >
                             </quill-editor>
               </div>
           </div>
@@ -209,9 +210,7 @@
 </template>
 
 <script>
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
+import "quill/dist/quill.snow.css";
 import { quillEditor } from 'vue-quill-editor'
 //自定义编辑器的工作条
 const toolbarOptions = [
@@ -230,7 +229,7 @@ const toolbarOptions = [
         [{'color': []}, {'background': []}],          // dropdown with defaults from theme
         [{'font': []}],
         [{'align': []}],
-        ['link', 'image', 'video'],
+        ['link', 'image'],
         ['clean']                                         // remove formatting button
 ];
 import city from './city.json'
@@ -1132,4 +1131,7 @@ export default {
 
 
 // 上传头像 
+
+
+
 </style>
