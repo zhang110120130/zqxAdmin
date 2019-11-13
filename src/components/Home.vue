@@ -148,13 +148,13 @@ export default {
     passwordVerification:''//修改密码验证码
   }),
   created(){
-    this.active = this.$route.path.replace('/', '');
+    this.active = this.$route.path;
     this.user = this.$store.getters.getUser;
     console.log(this.user);
   },
   watch:{
       $route(to,from){
-          this.active = this.$route.path.replace('/', '');
+          this.active = this.$route.path;
       }
   },
   methods: {

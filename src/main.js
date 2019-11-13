@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import '@babel/polyfill'
+
 // 登录判断
 router.beforeEach((to, from, next) =>{
   if(to.name != 'Login' && sessionStorage.getItem("user") == null){
