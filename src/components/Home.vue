@@ -6,7 +6,6 @@
         <p>中清商务商家版</p>
       </div>
       <el-menu
-        :default-active="active"
         class="el-menu-vertical-demo"
         router= router
         @open="handleOpen"

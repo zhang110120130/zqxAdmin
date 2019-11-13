@@ -115,4 +115,7 @@ body, div, p, ul, li, h4{
 .ql-snow .ql-picker.ql-font .ql-picker-item[data-value=monospace]::before {
   content: '等宽字体' !important;
 }
+svg{
+ height: 18px!important;
+}
 </style>
