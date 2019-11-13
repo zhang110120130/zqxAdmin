@@ -101,22 +101,22 @@
     </el-pagination>
     <el-dialog :visible.sync="dialogTableVisible" :show-close = false width="450px">
       <el-form ref="form" :model="form" label-width="70px">
-        <el-form-item label="价格" prop="price" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' }]">
+        <el-form-item label="价格" prop="price" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' },{validator:customrules1,trigger:'blur'}]">
           <el-input v-model="form.price">
             <template slot="append">元</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="库存" prop="stock" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' }]">
-          <el-input v-model="form.stock">
+        <el-form-item label="库存" prop="stock" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' },{type:'number',message:'请输入整数',trigger:'blur'}]">
+          <el-input v-model.number="form.stock">
             <template slot="append">件</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="运费" prop="freight" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' }]">
+        <el-form-item label="运费" prop="freight" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' },{validator:customrules1,trigger:'blur'}]">
           <el-input v-model="form.freight">
             <template slot="append">元</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="保险" prop="insurance" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' }]">
+        <el-form-item label="保险" prop="insurance" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' },{validator:customrules1,trigger:'blur'}]">
           <el-input v-model="form.insurance">
             <template slot="append">元</template>
           </el-input>
@@ -169,6 +169,18 @@ export default {
     this.getallservices();
   },
   methods: {
+    customrules1(rule, value, callback) {
+      console.log(rule.field);
+      if (!parseFloat(value)&&value != 0) {
+        this.form[rule.field]=null;
+        callback(new Error('请输入数字'));
+      } else if(parseFloat(value) != parseFloat(value).toFixed(2)) {
+        this.form[rule.field]=null;
+        callback(new Error('小数点后最多两位'))
+      }else{
+        callback();
+      }
+    },
     getallservices(){
       let that = this;
       this.axios.post('/MobileJson/CompanyAdmin/allservices', this.qs.stringify({ 

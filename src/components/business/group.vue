@@ -2,11 +2,7 @@
   <div class="manage">
     <div class="header">
       <p class="title">我要团购</p>
-      <el-input
-        placeholder="搜索关键词"
-        v-model="keywords"
-        clearable>
-      </el-input>
+      <el-input placeholder="搜索关键词" v-model="keywords" clearable></el-input>
       <el-button type="primary" icon="el-icon-search" @click="searchBtn">搜索</el-button>
       <el-button type="info" @click="resetBtn">重置</el-button>
     </div>
@@ -16,77 +12,36 @@
         border
         :row-style="tableRowStyle"
         :header-cell-style="tableHeaderColor"
-        style="width: 100%;height: 100%;">
-        <el-table-column
-          prop="thumb"
-          label="产品图片"
-          width="180">
+        style="width: 100%;height: 100%;"
+      >
+        <el-table-column prop="thumb" label="产品图片" width="180">
           <template slot-scope="scope">
             <el-image
               style="width: 150px; height: 100px"
               :src="scope.row.thumb"
-              :fit="'scale-down'">
-            </el-image>
+              :fit="'scale-down'"
+            ></el-image>
           </template>
         </el-table-column>
-        <el-table-column
-          prop="name"
-          label="产品名称"
-          width="180">
+        <el-table-column prop="name" label="产品名称" width="180"></el-table-column>
+        <el-table-column prop="specname" label="规格" width="100"></el-table-column>
+        <el-table-column prop="catename" label="分类" width="180">
+          <template slot-scope="scope">{{scope.row.catename.join(' | ')}}</template>
         </el-table-column>
-        <el-table-column
-          prop="specname"
-          label="规格"
-          width="100">
-        </el-table-column>
-        <el-table-column
-          prop="catename"
-          label="分类"
-          width="180">
-          <template slot-scope="scope">
-            {{scope.row.catename.join(' | ')}}
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="price"
-          label="价格/天"
-          width="100">
-        </el-table-column>
-        <el-table-column
-          prop="stock"
-          label="库存"
-          width="60">
-        </el-table-column>
-        <el-table-column
-          prop="freight"
-          label="运费"
-          width="60">
-        </el-table-column>
-        <el-table-column
-          prop="insurance"
-          label="保险"
-          width="60">
-        </el-table-column>
-        <el-table-column
-          prop="insurance"
-          label="起始时间"
-          width="100">
+        <el-table-column prop="price" label="价格/天" width="100"></el-table-column>
+        <el-table-column prop="stock" label="库存" width="60"></el-table-column>
+        <el-table-column prop="freight" label="运费" width="60"></el-table-column>
+        <el-table-column prop="insurance" label="保险" width="60"></el-table-column>
+        <el-table-column prop="insurance" label="起始时间" width="100">
           <template slot-scope="scope">
             <p>{{scope.row.created_at}}</p>
             <p>{{scope.row.end_at}}</p>
           </template>
         </el-table-column>
-        <el-table-column
-          prop="state"
-          label="状态"
-          width="100">
-          <template slot-scope="scope">
-            {{scope.row.state == 0 ? '下架' : '上架'}}
-          </template>
+        <el-table-column prop="state" label="状态" width="100">
+          <template slot-scope="scope">{{scope.row.state == 0 ? '下架' : '上架'}}</template>
         </el-table-column>
-        <el-table-column
-          prop="address"
-          label="操作">
+        <el-table-column prop="address" label="操作">
           <template slot-scope="scope">
             <div class="operation">
               <p @click="editBtn(scope.row)">修改价格</p>
@@ -106,41 +61,73 @@
       layout="prev, pager, next"
       @current-change="handleCurrentChange"
       :current-page="page"
-      :page-count="Math.ceil(pages / 5)">
-    </el-pagination>
-    <el-dialog :visible.sync="dialogTableVisible" :show-close = false width="450px">
+      :page-count="Math.ceil(pages / 5)"
+    ></el-pagination>
+    <el-dialog :visible.sync="dialogTableVisible" :show-close="false" width="450px">
       <el-form ref="form" :model="form" label-width="90px">
-        <el-form-item label="价格" prop="price" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' }]">
-          <el-input v-model="form.price">
+        <el-form-item
+          label="价格"
+          prop="price"
+          :rules="[{ required: true, message: '请输入价格', trigger: 'blur' },{validator:customrules1,trigger:'blur'}]"
+        >
+          <el-input v-model="form.price"> 
             <template slot="append">元</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="库存" prop="stock" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' }]">
-          <el-input v-model="form.stock">
+        <el-form-item
+          label="库存"
+          prop="stock"
+          :rules="[{ required: true, message: '请输入价格', trigger: 'blur' },{type:'number',message:'请输入整数',trigger:'blur'}]"
+        >
+          <el-input v-model.number="form.stock">
             <template slot="append">件</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="运费" prop="freight" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' }]">
+        <el-form-item
+          label="运费"
+          prop="freight"
+          :rules="[{ required: true, message: '请输入价格', trigger: 'blur' },{validator:customrules1,trigger:'blur'}]"
+        >
           <el-input v-model="form.freight">
             <template slot="append">元</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="保险" prop="insurance" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' }]">
+        <el-form-item
+          label="保险"
+          prop="insurance"
+          :rules="[{ required: true, message: '请输入价格', trigger: 'blur' },{validator:customrules1,trigger:'blur'}]"
+        >
           <el-input v-model="form.insurance">
             <template slot="append">元</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="结束时间" prop="end_at" :rules="[{ required: true, message: '请输入结束时间', trigger: 'blur' }]">
-              <el-date-picker type="date" placeholder="选择日期" :picker-options="pickerOptions" format="yyyy-MM-dd" value-format="yyyy-MM-dd" v-model="form.end_at" style="width: 100%;"></el-date-picker>
-            </el-form-item>
-        <el-form-item label="服务" prop="services" :rules="[{ required: true, message: '请选择服务', trigger: 'blur' }]">
+        <el-form-item
+          label="结束时间"
+          prop="end_at"
+          :rules="[{ required: true, message: '请输入结束时间', trigger: 'blur' }]"
+        >
+          <el-date-picker
+            type="date"
+            placeholder="选择日期"
+            :picker-options="pickerOptions"
+            format="yyyy-MM-dd"
+            value-format="yyyy-MM-dd"
+            v-model="form.end_at"
+            style="width: 100%;"
+          ></el-date-picker>
+        </el-form-item>
+        <el-form-item
+          label="服务"
+          prop="services"
+          :rules="[{ required: true, message: '请选择服务', trigger: 'blur' }]"
+        >
           <el-select v-model="form.services" multiple placeholder="请选择">
             <el-option
               v-for="item in allservices"
               :key="item.id"
               :label="item.name"
-              :value="item.id">
-            </el-option>
+              :value="item.id"
+            ></el-option>
           </el-select>
         </el-form-item>
       </el-form>
@@ -154,61 +141,76 @@
 
 <script>
 export default {
-  name: 'manage',
-  data:()=>({
+  name: "manage",
+  data: () => ({
     proid: null,
     radio: 0,
     radiolist: [],
     dialogTableVisible: false,
-    keywords: '',
+    keywords: "",
     tableData: [],
     allservices: [],
     user: null,
     page: 1,
     pages: 0,
     pickerOptions: {
-          disabledDate(time) {
-            return time.getTime() < Date.now();
-          }
+      disabledDate(time) {
+        return time.getTime() < Date.now();
+      }
     },
-    form:{
-      freight: '',
-      price: '',
-      stock: '',
-      type:2,
-      end_at:'',
-      insurance: '',
+    form: {
+      freight: "",
+      price: "",
+      stock: "",
+      type: 2,
+      end_at: "",
+      insurance: "",
       services: []
     },
     id: null
   }),
-  created(){
+  created() {
     this.user = this.$store.getters.getUser;
     this.getList();
     this.getallservices();
   },
   methods: {
-    getallservices(){
+    customrules1(rule, value, callback) {
+      console.log(rule.field);
+      if (!parseFloat(value)&&value != 0) {
+        this.form[rule.field]=null;
+        callback(new Error('请输入数字'));
+      } else if(parseFloat(value) != parseFloat(value).toFixed(2)) {
+        this.form[rule.field]=null;
+        callback(new Error('小数点后最多两位'))
+      }else{
+        callback();
+      }
+    },
+    getallservices() {
       let that = this;
-      this.axios.post('/MobileJson/CompanyAdmin/allservices', this.qs.stringify({ 
-        uid: this.user.id
-      }))
-      .then(function (response) {
-        if(response.data.code == true){
-          that.allservices = response.data.data;
-        }
-      })
-      .catch(function (error) {
-      });
+      this.axios
+        .post(
+          "/MobileJson/CompanyAdmin/allservices",
+          this.qs.stringify({
+            uid: this.user.id
+          })
+        )
+        .then(function(response) {
+          if (response.data.code == true) {
+            that.allservices = response.data.data;
+          }
+        })
+        .catch(function(error) {});
     },
-    searchBtn(){
+    searchBtn() {
       this.getList();
     },
-    resetBtn(){
-      this.keywords = '';
+    resetBtn() {
+      this.keywords = "";
       this.getList();
     },
-    editBtn(data){
+    editBtn(data) {
       this.id = data.id;
       this.form.freight = parseFloat(data.freight);
       this.form.price = parseFloat(data.price);
@@ -218,205 +220,227 @@ export default {
       this.form.services = data.services;
       this.dialogTableVisible = true;
     },
-    submitForm(){
+    submitForm() {
       let that = this;
-      that.$refs.form.validate((valid) => {
+      that.$refs.form.validate(valid => {
         if (valid) {
           that.form.id = that.id;
           that.form.uid = that.user.id;
           console.log(that.form);
-          that.axios.post('/MobileJson/CompanyAdmin/editprice', that.qs.stringify(that.form))
-          .then(function (response) {
-            if(response.data.code == true){
-              that.getList();
-              that.dialogTableVisible = false;
-              that.form = {
-                freight: '',
-                price: '',
-                stock: '',
-                type:2,
-                end_at:'',
-                insurance: '',
-                services: []
-              };
-              that.$message({
-                type: 'success',
-                message: '修改成功!'
-              });
-            }
-          })
-          .catch(function (error) {
-          });
+          that.axios
+            .post(
+              "/MobileJson/CompanyAdmin/editprice",
+              that.qs.stringify(that.form)
+            )
+            .then(function(response) {
+              if (response.data.code == true) {
+                that.getList();
+                that.dialogTableVisible = false;
+                that.form = {
+                  freight: "",
+                  price: "",
+                  stock: "",
+                  type: 2,
+                  end_at: "",
+                  insurance: "",
+                  services: []
+                };
+                that.$message({
+                  type: "success",
+                  message: "修改成功!"
+                });
+              }
+            })
+            .catch(function(error) {});
         } else {
-          
           return false;
         }
       });
     },
-    soldout(id){
+    soldout(id) {
       let that = this;
-      this.$confirm('此操作将下架商品, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.axios.post('/MobileJson/CompanyAdmin/goodsdown', this.qs.stringify({ 
-          uid: this.user.id,
-          id: id
-        }))
-        .then(function (response) {
-          if(response.data.code == true){
-            that.getList();
-            that.$message({
-              type: 'success',
-              message: '下架成功!'
+      this.$confirm("此操作将下架商品, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.axios
+            .post(
+              "/MobileJson/CompanyAdmin/goodsdown",
+              this.qs.stringify({
+                uid: this.user.id,
+                id: id
+              })
+            )
+            .then(function(response) {
+              if (response.data.code == true) {
+                that.getList();
+                that.$message({
+                  type: "success",
+                  message: "下架成功!"
+                });
+              } else {
+                that.$message({
+                  type: "info",
+                  message: "下架失败"
+                });
+              }
+            })
+            .catch(function(error) {
+              that.$message({
+                type: "info",
+                message: "下架失败"
+              });
             });
-          }else{
-            that.$message({
-              type: 'info',
-              message: '下架失败'
-            }); 
-          }
         })
-        .catch(function (error) {
-          that.$message({
-              type: 'info',
-              message: '下架失败'
-            }); 
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消下架"
+          });
         });
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消下架'
-        });          
-      });
     },
-    putaway(id){
+    putaway(id) {
       let that = this;
-      this.$confirm('此操作将上架商品, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.axios.post('/MobileJson/CompanyAdmin/goodsup', this.qs.stringify({ 
-          uid: this.user.id,
-          id: id
-        }))
-        .then(function (response) {
-          if(response.data.code == true){
-            that.getList();
-            that.$message({
-              type: 'success',
-              message: '上架成功!'
+      this.$confirm("此操作将上架商品, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.axios
+            .post(
+              "/MobileJson/CompanyAdmin/goodsup",
+              this.qs.stringify({
+                uid: this.user.id,
+                id: id
+              })
+            )
+            .then(function(response) {
+              if (response.data.code == true) {
+                that.getList();
+                that.$message({
+                  type: "success",
+                  message: "上架成功!"
+                });
+              } else {
+                that.$message({
+                  type: "info",
+                  message: "上架失败"
+                });
+              }
+            })
+            .catch(function(error) {
+              that.$message({
+                type: "info",
+                message: "上架失败"
+              });
             });
-          }else{
-            that.$message({
-              type: 'info',
-              message: '上架失败'
-            }); 
-          }
         })
-        .catch(function (error) {
-          that.$message({
-              type: 'info',
-              message: '上架失败'
-            }); 
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消上架"
+          });
         });
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消上架'
-        });          
-      });
     },
-    deleteBtn(id){
+    deleteBtn(id) {
       let that = this;
-      this.$confirm('此操作将永久删除, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.axios.post('/MobileJson/CompanyAdmin/goodsdel', this.qs.stringify({ 
-          uid: this.user.id,
-          id: id
-        }))
-        .then(function (response) {
-          if(response.data.code == true){
-            that.getList();
-            that.$message({
-              type: 'success',
-              message: '删除成功!'
+      this.$confirm("此操作将永久删除, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.axios
+            .post(
+              "/MobileJson/CompanyAdmin/goodsdel",
+              this.qs.stringify({
+                uid: this.user.id,
+                id: id
+              })
+            )
+            .then(function(response) {
+              if (response.data.code == true) {
+                that.getList();
+                that.$message({
+                  type: "success",
+                  message: "删除成功!"
+                });
+              } else {
+                that.$message({
+                  type: "info",
+                  message: "删除失败"
+                });
+              }
+            })
+            .catch(function(error) {
+              that.$message({
+                type: "info",
+                message: "删除失败"
+              });
             });
-          }else{
-            that.$message({
-              type: 'info',
-              message: '删除失败'
-            }); 
-          }
         })
-        .catch(function (error) {
-          that.$message({
-              type: 'info',
-              message: '删除失败'
-            }); 
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
         });
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        });          
-      });
     },
-    handleCurrentChange: function(currentPage){
+    handleCurrentChange: function(currentPage) {
       this.page = currentPage;
       this.getList();
     },
-    getList(){
+    getList() {
       let that = this;
-      that.axios.post('/MobileJson/CompanyAdmin/goodslist', that.qs.stringify({ 
-        page: that.page,
-        uid: that.user.id,
-        type: 2,
-        keywords: that.keywords
-      }))
-      .then(function (response) {
-        that.pages = parseInt(response.data.count);
-        that.tableData = response.data.data;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
+      that.axios
+        .post(
+          "/MobileJson/CompanyAdmin/goodslist",
+          that.qs.stringify({
+            page: that.page,
+            uid: that.user.id,
+            type: 2,
+            keywords: that.keywords
+          })
+        )
+        .then(function(response) {
+          that.pages = parseInt(response.data.count);
+          that.tableData = response.data.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     },
     handleClose() {
       console.log(3);
-      
     },
     tableRowStyle() {
-      return 'text-align: center;'
+      return "text-align: center;";
     },
     tableHeaderColor({ rowIndex }) {
       if (rowIndex === 0) {
-        return 'background-color: #EDEFF1FF;text-align: center;'
+        return "background-color: #EDEFF1FF;text-align: center;";
       }
     }
   },
   filters: {
-    radioFilter: function (value, radiolist) {
+    radioFilter: function(value, radiolist) {
       return radiolist.indexOf(value) == -1 ? false : true;
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
-.manage{
+.manage {
   position: relative;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
   padding: 129px 26px 100px 26px;
 }
-.header{
+.header {
   position: fixed;
   top: 88px;
   left: 20.1vw;
@@ -424,22 +448,22 @@ export default {
   align-items: center;
   width: 100%;
   height: 103px;
-  background: #FFF;
-  .title{
+  background: #fff;
+  .title {
     margin-left: 19px;
   }
-  .el-input{
+  .el-input {
     width: 382px;
     margin-left: 25px;
     margin-right: 14px;
   }
 }
-.list{
+.list {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
   padding: 23px 27px 10px 27px;
-  background: #FFF;
+  background: #fff;
 }
 .el-pagination {
   display: flex;
@@ -447,24 +471,23 @@ export default {
   align-items: center;
   margin-top: 28px;
 }
-.operation{
+.operation {
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  p{
+  p {
     cursor: pointer;
   }
-  .line{
+  .line {
     width: 1px;
     height: 18px;
-    background: #666666FF;
+    background: #666666ff;
     margin: 0px 20px;
   }
 }
-.addBusiness{
+.addBusiness {
   box-sizing: border-box;
   padding: 0px 31px;
 }
-
 </style>

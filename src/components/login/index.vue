@@ -2,7 +2,7 @@
   <div class="login">
     <div class="sign">
       <img src="../../assets/login_logo.png" alt="">
-      <p>中清商务企业版</p>
+      <p>中清商务商家版</p>
       <div class="input">
         <span>用户名</span>
         <input placeholder="请输入用户名" v-model="text">
