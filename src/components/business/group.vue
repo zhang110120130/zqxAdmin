@@ -110,23 +110,23 @@
     </el-pagination>
     <el-dialog :visible.sync="dialogTableVisible" :show-close = false width="450px">
       <el-form ref="form" :model="form" label-width="90px">
-        <el-form-item label="价格" prop="price" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' },{ type: 'number', message: '必须为数字值'}]">
-          <el-input v-model.number="form.price">
+        <el-form-item label="价格" prop="price" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' }]">
+          <el-input v-model="form.price">
             <template slot="append">元</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="库存" prop="stock" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' },{ type: 'number', message: '必须为数字值'}]">
-          <el-input v-model.number="form.stock">
+        <el-form-item label="库存" prop="stock" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' }]">
+          <el-input v-model="form.stock">
             <template slot="append">件</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="运费" prop="freight" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' },{ type: 'number', message: '必须为数字值'}]">
-          <el-input v-model.number="form.freight">
+        <el-form-item label="运费" prop="freight" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' }]">
+          <el-input v-model="form.freight">
             <template slot="append">元</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="保险" prop="insurance" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' },{ type: 'number', message: '必须为数字值'}]">
-          <el-input v-model.number="form.insurance">
+        <el-form-item label="保险" prop="insurance" :rules="[{ required: true, message: '请输入价格', trigger: 'blur' }]">
+          <el-input v-model="form.insurance">
             <template slot="append">元</template>
           </el-input>
         </el-form-item>
@@ -210,10 +210,10 @@ export default {
     },
     editBtn(data){
       this.id = data.id;
-      this.form.freight = parseInt(data.freight);
-      this.form.price = parseInt(data.price);
-      this.form.stock = parseInt(data.stock);
-      this.form.insurance = parseInt(data.insurance);
+      this.form.freight = parseFloat(data.freight);
+      this.form.price = parseFloat(data.price);
+      this.form.stock = parseFloat(data.stock);
+      this.form.insurance = parseFloat(data.insurance);
       this.form.end_at = data.end_at;
       this.form.services = data.services;
       this.dialogTableVisible = true;
