@@ -22,7 +22,7 @@ Vue.use(ElementUI);
 //axios
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-axios.defaults.baseURL = 'https://test.5i71.org';
+axios.defaults.baseURL = 'https://article.5i71.org';
 axios.defaults.headers.TOKEN = store.getters.getToken;
 axios.interceptors.response.use(
   response => {
