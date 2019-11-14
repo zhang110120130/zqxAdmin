@@ -39,7 +39,7 @@ body, div, p, ul, li, h4{
   overflow: auto !important;
 }
 .list{
-  min-width: 1300px;
+  min-width: 900px;
 }
 .el-table .cell{
   text-align: center !important; 

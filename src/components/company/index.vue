@@ -713,12 +713,10 @@ export default {
           -webkit-box-orient: vertical;
         }
         .content{
-          width:100%;
-          line-height: 25px;
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 3;
-          overflow: hidden;
+            width: 100%;
+            height: 100px;
+            line-height: 25px;
+            overflow: hidden;
         }
       }
       //企业类型

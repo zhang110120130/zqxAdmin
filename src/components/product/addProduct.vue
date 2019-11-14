@@ -243,6 +243,7 @@ export default {
       let that = this;
       this.$refs.form.validate(valid => {
         if (valid) {
+          console.log(that.form.thumbs)
           that.form.uid = that.user.id;
           that.form.isrecord = isrecord;
           that.form.thumb = that.form.thumbs.map(item => {
@@ -263,6 +264,7 @@ export default {
                   proname: "",
                   specname: "",
                   thumb: [],
+                  thumbs: [],
                   arrcate: [],
                   content: ""
                 };
@@ -271,6 +273,7 @@ export default {
                   type: "success",
                   message: "添加成功!"
                 });
+            
               }
             })
             .catch(function(error) {
@@ -350,8 +353,7 @@ export default {
       });
     },
     handlePictureCardPreview(response, file, fileList) {
-      console.log(fileList);
-      let index = this.form.thumbs.length;
+      console.log(this.form.thumbs);
       let img_cover = {
         name: "img.png",
         url: response.url
