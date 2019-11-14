@@ -243,7 +243,7 @@ export default {
       let that = this;
       this.$refs.form.validate(valid => {
         if (valid) {
-          console.log(that.form.thumbs)
+
           that.form.uid = that.user.id;
           that.form.isrecord = isrecord;
           that.form.thumb = that.form.thumbs.map(item => {
