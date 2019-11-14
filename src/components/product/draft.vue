@@ -73,7 +73,7 @@
       layout="prev, pager, next"
       @current-change="handleCurrentChange"
       :current-page="page"
-      :page-count="Math.ceil(pages / 5)">
+      :page-count="Math.ceil(count / 5)">
     </el-pagination>
   </div>
 </template>
@@ -90,7 +90,7 @@ export default {
     tableData: [],
     user: null,
     page: 1,
-    pages: 0,
+    count: 0,
     keywords: ''
   }),
   created(){
@@ -108,8 +108,10 @@ export default {
       this.keywords = '';
       this.getList();
     },
-    handleCurrentChange(){
-
+    handleCurrentChange(val){
+      console.log(val);
+      this.page = val;
+      this.getList();
     },
     edit(id){
       let that = this;
@@ -173,7 +175,10 @@ export default {
         keywords: that.keywords
       }))
       .then(function (response) {
-          that.tableData = response.data.data;
+        console.log(response.data);
+        that.count = Number(response.data.count)
+        that.tableData = response.data.data;
+
       })
       .catch(function (error) {
         console.log(error);
