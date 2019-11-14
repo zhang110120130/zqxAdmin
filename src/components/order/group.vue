@@ -30,8 +30,10 @@
               <p class="name">{{item.goodsname}}</p>
               <div class="info">
                 <p>规格：{{item.specname}}</p>
+                <p>租赁天数：{{item.days}}  天 </p>
                 <p>数量：{{item.number}}</p>
-                <p>单价：￥ {{item.price}}</p>
+                <p>单价：￥{{item.price}} <span style="font-size:12px;">/天</span></p>
+                <p>总价：￥{{item.total}}</p>
                 <p>订单状态：<span class="status">{{item.statename}}</span></p>
               </div>
             </div>
@@ -44,7 +46,7 @@
           暂时还没有订单
         </p>
       </div>
-    <el-dialog title="订单信息" :visible.sync="hide" width="50%">
+    <el-dialog title="订单信息" :visible.sync="hide" width="70%">
       <div class="tab-details">
           <div class="title">订单信息</div>
           <div class="content">
@@ -67,11 +69,14 @@
                 <span>数量</span>{{information.number}}
               </div>
               <div>
-                <span>单价</span>{{information.price}}
+                <span>单价</span>{{information.price}}/天
               </div>
             </div>
             <div class="number">
-              <span>租赁天数 </span>{{information.days}}
+              <span>租赁天数 </span>{{information.days}}天
+            </div>
+            <div class="number">
+              <span>总价 </span>￥{{information.total}}
             </div>
             <div class="number">
               <span>订单编号</span>{{information.orderno}}
@@ -285,7 +290,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-  .sellOrder{
+    .sellOrder{
       position: relative;
       width: 100%;
       height: 100%;
@@ -364,25 +369,34 @@ export default {
         width: 100%;
         height:100%;
         .tab-list{
-             width: 100%;
+            padding: 20px 0;
+            width: 100%;
             display: flex;
             justify-content: flex-start;
           .right{
             width: 100%;
             height: 100%;
+            padding-left: 20px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
             .name{
               margin-bottom: 19px;
+              color:#1C2E32;
+              font-size:18px;
             }
             .info{
               width: 100%;
               display: flex;
               justify-content: space-around;
               p{
-                width: 25%;
+                color: #666666;
+                width: 16%;
+                text-align: left;
+              }
+              p:last-child{
+                width: 20%;
                 text-align: left;
               }
             }
@@ -413,7 +427,7 @@ export default {
         width: 100%;
         background: #ffffff;
         text-align: left;
-        height:600px;
+        height:70vh;
         overflow: auto;
         .title{
           font-size: 18px;
