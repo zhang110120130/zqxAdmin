@@ -48,7 +48,7 @@
         </el-form-item>
       </el-form>
          <!-- 剪裁组件弹窗 -->
-      <el-dialog :visible.sync="cropperModel" width="800px" :before-close="beforeClose">
+      <el-dialog :visible.sync="cropperModel" width="800px" title="请将图片尺寸按1:1比例裁剪" :before-close="beforeClose">
         <Cropper :img-file="file" ref="vueCropper" @upload="upload">
         </Cropper>
       </el-dialog>
