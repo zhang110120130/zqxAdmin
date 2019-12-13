@@ -202,11 +202,11 @@ export default {
       });
     },
     searchBtn(){
-      this.getList();
+      this.getList(true);
     },
     resetBtn(){
       this.keywords = '';
-      this.getList();
+      this.getList(true);
     },
     editBtn(data){
       console.log(data);
@@ -372,10 +372,16 @@ export default {
       this.page = currentPage;
       this.getList();
     },
-    getList(){
+    getList(isSearch){
+      let page;
+      if(isSearch){
+        page = 1;
+      }else{
+        page = this.page;
+      }
       let that = this;
       that.axios.post('/MobileJson/CompanyAdmin/goodslist', that.qs.stringify({ 
-        page: that.page,
+        page,
         uid: that.user.id,
         type: 3,
         keywords: that.keywords
